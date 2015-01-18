@@ -1,75 +1,64 @@
-var through = require('through');
-var path = require('path');
-var gutil = require('gulp-util');
-var PluginError = gutil.PluginError;
-var File = gutil.File;
-var Buffer = require('buffer').Buffer;
-var Concat = require('concat-with-sourcemaps');
+'use strict';
 
-// file can be a vinyl file object or a string
-// when a string it will construct a new one
+var path = require('path')
+  , poirot = require('poirot')
+  , through = require('through')
+  , gutil = require('gulp-util')
+  , File = require('gulp-util').File
+  , PluginError = require('gulp-util').PluginError;
+
+
+// This was largely copied from gulp-concat.
 module.exports = function(file, opt) {
   if (!file) {
-    throw new PluginError('gulp-concat', 'Missing file option for gulp-concat');
+    throw new PluginError('gulp-poirot', 'Missing file option for gulp-poirot');
   }
   opt = opt || {};
-
-  // to preserve existing |undefined| behaviour and to introduce |newLine: ""| for binaries
+  // to preserve existing |undefined| behaviour and to introduce
+  // |newLine: ""| for binaries
   if (typeof opt.newLine !== 'string') {
     opt.newLine = gutil.linefeed;
   }
-
-  var isUsingSourceMaps = false;
-  var firstFile;
-  var fileName;
-  var concat;
-
+  var firstFile
+    , fileName
+    , poirotTemplates;
   if (typeof file === 'string') {
     fileName = file;
   } else if (typeof file.path === 'string') {
     fileName = path.basename(file.path);
     firstFile = new File(file);
   } else {
-    throw new PluginError('gulp-concat', 'Missing path in file options for gulp-concat');
+    throw new PluginError('gulp-poirot',
+      'Missing path in file options for gulp-poirot');
   }
 
   function bufferContents(file) {
-    // ignore empty files
     if (file.isNull()) {
       return;
     }
 
-    // we dont do streams (yet)
     if (file.isStream()) {
-      return this.emit('error', new PluginError('gulp-concat',  'Streaming not supported'));
+      return this.emit('error', // jshint ignore:line
+        new PluginError('gulp-poirot', 'Streaming not supported'));
     }
 
-    // enable sourcemap support for concat
-    // if a sourcemap initialized file comes in
-    if (file.sourceMap && isUsingSourceMaps === false) {
-      isUsingSourceMaps = true;
-    }
-
-    // set first file if not already set
+    // Set first file if not already set
     if (!firstFile) {
       firstFile = file;
     }
 
-    // construct concat instance
-    if (!concat) {
-      concat = new Concat(isUsingSourceMaps, fileName, opt.newLine);
+    // Track template path and contents.
+    if (!poirotTemplates) {
+      poirotTemplates = {};
     }
-
-    // add file to concat instance
-    concat.add(file.relative, file.contents, file.sourceMap);
+    poirotTemplates[file.relative] = String(file.contents);
   }
 
   function endStream() {
     // no files passed in, no file goes out
     if (!firstFile) {
-      return this.emit('end');
+      return this.emit('end'); // jshint ignore:line
     }
-
     var joinedFile;
 
     // if file opt was a file path
@@ -80,15 +69,11 @@ module.exports = function(file, opt) {
     } else {
       joinedFile = firstFile;
     }
+    console.log(poirotTemplates);
+    joinedFile.contents = new Buffer(poirot.compile(poirotTemplates));
 
-    joinedFile.contents = concat.content;
-
-    if (concat.sourceMapping) {
-      joinedFile.sourceMap = JSON.parse(concat.sourceMap);
-    }
-
-    this.emit('data', joinedFile);
-    this.emit('end');
+    this.emit('data', joinedFile); // jshint ignore:line
+    this.emit('end');              // jshint ignore:line
   }
 
   return through(bufferContents, endStream);

@@ -1,32 +1,25 @@
 {
-  "name": "gulp-concat",
-  "description": "Concatenates files",
-  "version": "2.4.3",
-  "homepage": "http://github.com/wearefractal/gulp-concat",
-  "repository": "git://github.com/wearefractal/gulp-concat.git",
-  "author": "Fractal <contact@wearefractal.com> (http://wearefractal.com/)",
+  "name": "gulp-poirot",
+  "description": "Compiles and concatenates Poirot templates",
+  "version": "1.0.0",
+  "homepage": "http://github.com/haggholm/gulp-poirot",
+  "repository": "git://github.com/haggholm/gulp-poirot.git",
+  "author": "Petter Häggholm <petter@petterhaggholm.net> (http://petterhaggholm.net/)",
   "main": "./index.js",
   "keywords": [
     "gulpplugin"
   ],
   "dependencies": {
-    "concat-with-sourcemaps": "^1.0.0",
     "gulp-util": "^3.0.1",
+    "poirotjs": "git://github.com/haggholm/poirotjs",
     "through": "^2.3.4"
   },
   "devDependencies": {
     "gulp": "^3.8.7",
     "gulp-sourcemaps": "^1.1.4",
     "istanbul": "^0.3.2",
-    "mocha": "^2.0.1",
-    "mocha-lcov-reporter": "0.0.1",
-    "should": "^4.3.0",
     "stream-array": "^1.0.1",
     "stream-assert": "^2.0.1"
-  },
-  "scripts": {
-    "test": "mocha",
-    "coverage": "istanbul cover _mocha -- -R spec"
   },
   "engineStrict": true,
   "engines": {
@@ -35,7 +28,7 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://github.com/wearefractal/gulp-concat/raw/master/LICENSE"
+      "url": "http://github.com/haggholm/gulp-poirot/raw/master/LICENSE"
     }
   ]
 }

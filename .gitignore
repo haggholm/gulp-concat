@@ -5,3 +5,6 @@ build
 *.node
 components
 coverage
+.idea
+*~
+*.swp

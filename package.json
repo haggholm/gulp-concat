@@ -16,8 +16,6 @@
   },
   "devDependencies": {
     "gulp": "^3.8.7",
-    "gulp-sourcemaps": "^1.1.4",
-    "istanbul": "^0.3.2",
     "stream-array": "^1.0.1",
     "stream-assert": "^2.0.1"
   },

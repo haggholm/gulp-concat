@@ -51,7 +51,9 @@ module.exports = function(file, opt) {
     if (!poirotTemplates) {
       poirotTemplates = {};
     }
-    poirotTemplates[file.relative] = String(file.contents);
+    var templateName = file.relative.replace(
+      /\.(poirot|html|mustache|handlebars|hbs)$/, '');
+    poirotTemplates[templateName] = String(file.contents);
   }
 
   function endStream() {

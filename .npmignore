@@ -4,3 +4,7 @@ node_modules
 build
 *.node
 components
+coverage
+.idea
+*~
+*.swp

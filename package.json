@@ -10,12 +10,10 @@
     "gulpplugin"
   ],
   "dependencies": {
-    "gulp-util": "^3.0.1",
+    "gulp-util": "^3.0.3",
     "poirotjs": "git://github.com/haggholm/poirotjs",
-    "through": "^2.3.4"
-  },
-  "devDependencies": {
-    "gulp": "^3.8.7",
+    "through": "^2.3.4",
+    "gulp": "^3.8.11",
     "stream-array": "^1.0.1",
     "stream-assert": "^2.0.1"
   },

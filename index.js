@@ -71,7 +71,6 @@ module.exports = function(file, opt) {
     } else {
       joinedFile = firstFile;
     }
-    console.log(poirotTemplates);
     joinedFile.contents = new Buffer(poirot.compile(poirotTemplates));
 
     this.emit('data', joinedFile); // jshint ignore:line

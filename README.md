@@ -1,5 +1,7 @@
 # gulp-poirot
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/haggholm/gulp-poirot.svg)](https://greenkeeper.io/)
+
 ## Usage
 
 ```js

@@ -13,7 +13,7 @@
     "gulp-util": "^3.0.3",
     "poirotjs": "git://github.com/haggholm/poirotjs",
     "through": "^2.3.4",
-    "gulp": "^3.8.11",
+    "gulp": "^4.0.2",
     "stream-array": "^1.0.1",
     "stream-assert": "^2.0.1"
   },
